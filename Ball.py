@@ -8,6 +8,7 @@ class Ball:
         self.velocity = ball_velocity
         self.radius = ball_radius
         self.screen = screen
+        self.shape = None
         
     def move(self):
         screen_size = self.screen.get_size()
@@ -21,5 +22,8 @@ class Ball:
         if self.pos[1] < 0 or self.pos[1] > screen_size[1]:
             self.velocity[1] = -self.velocity[1]         
 
+    def move_after_colision(self):
+        self.velocity[0] = -self.velocity[0]
+        
     def draw(self):
-        pygame.draw.circle(self.screen, self.color, self.pos, self.radius)        
+        self.shape = pygame.draw.circle(self.screen, self.color, self.pos, self.radius)        
