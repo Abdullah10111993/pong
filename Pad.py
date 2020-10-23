@@ -26,7 +26,3 @@ class Pad:
         pad_params = pygame.Rect(self.left_pos, self.top_pos, self.width, self.height)
         self.shape = pygame.draw.rect(self.screen, self.pad_color, pad_params)     
         
-    def collision(self, pointA, pointB, direction):
-        if pointB[0] == pointA[0] and pointB[1] >= pointA[1] and pointB[1] >= pointA[1]+self.height and direction > 0:
-            return True
-        return False

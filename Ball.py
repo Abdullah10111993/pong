@@ -17,7 +17,7 @@ class Ball:
             self.pos[index] += self.velocity[index]
             
         # bounce ball
-        if self.pos[0] < 0 or self.pos[0] > screen_size[0]:
+        if self.pos[0] - self.radius == 0 or self.pos[0] + self.radius == screen_size[0]:
             self.velocity[0] = -self.velocity[0]
         if self.pos[1] < 0 or self.pos[1] > screen_size[1]:
             self.velocity[1] = -self.velocity[1]         

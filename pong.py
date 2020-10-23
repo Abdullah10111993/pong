@@ -7,7 +7,7 @@ from Pad import Pad
 pygame.init()
 
 #screen size
-screen_size = (1080,720)
+screen_size = (800,600)
 screen = pygame.display.set_mode(screen_size)
 
 # window caption
@@ -31,8 +31,8 @@ pad_color = pygame.Color('white')
 #create rigth pad
 right_score = 0
 right_pad_height = 200
-right_pad_left = screen_size[0] - screen_size[0]*0.15
-right_pad_top = int(screen_size[1]/2) - int(right_pad_height/2)
+right_pad_left = 670
+right_pad_top = 200
 right_pad_width = 30 
 right_pad = Pad(right_pad_left, right_pad_top, right_pad_width, right_pad_height, pad_color, screen)
 right_pad_up = False
@@ -41,8 +41,8 @@ right_pad_down = False
 #create left pad
 left_score = 0
 left_pad_height = 200 
-left_pad_left = 0 + screen_size[0]*0.1
-left_pad_top = int(screen_size[1]/2) - int(right_pad_height/2)
+left_pad_left = 100
+left_pad_top = 200
 left_pad_width = 30
 left_pad = Pad(left_pad_left, left_pad_top, left_pad_width, left_pad_height, pad_color, screen)
 left_pad_up = False
@@ -123,17 +123,26 @@ while not close_window:
     #create left pad
     left_pad.draw()
     
-    if right_pad.collision([right_pad.left_pos, right_pad.top_pos], ball.pos, ball.velocity[0]):
-        ball.move_after_colision()
+    #if right_pad.collision([right_pad.left_pos, right_pad.top_pos], ball.pos, ball.velocity[0]):
+        #ball.move_after_colision()
 
-    if left_pad.collision([left_pad.left_pos+left_pad.width, left_pad.top_pos], ball.pos, ball.velocity[0]*-1):
+    #if left_pad.collision([left_pad.left_pos+left_pad.width, left_pad.top_pos], ball.pos, ball.velocity[0]*-1):
+        #ball.move_after_colision()        
+        
+    if right_pad.shape.collidepoint(ball.pos[0]+ball.radius, ball.pos[1]) and ball.velocity[0] > 0:
+        ball.move_after_colision()
+        
+    if left_pad.shape.collidepoint(ball.pos[0]-ball.radius, ball.pos[1]) and ball.velocity[0] < 0:
         ball.move_after_colision()        
         
-    if ball.pos[0] == 0:
+    #if ball.pos[0] - ball.radius == 0:
+        #right_score += 1
+    #if ball.pos[0] + ball.radius == screen_size[0]:
+        #left_score += 1
+    if ball.shape.collidepoint(0, ball.pos[1]):
         right_score += 1
-    if ball.pos[0] == screen_size[0]:
+    if ball.shape.collidepoint(screen_size[0]-1, ball.pos[1]):
         left_score += 1
-    
     #display everything on the screen
     pygame.display.flip()
     game_clock.tick(fps)
